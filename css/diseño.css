@@ -1,0 +1,10 @@
+#logo {
+    border-radius: 100%;
+    width: 50px;
+    height:auto ; }
+  body{
+    background-color: aquamarine;
+  }  
+    header{
+        background-image: url(master/img/baner.png);
+    }
