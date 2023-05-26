@@ -5,6 +5,23 @@ let nombre = prompt("Ingrese su nombre")
 const PRECIO_KILO_ENVUELTO = 1400
 const PRECIO_CAJA_X40 = 1200
 const PRECIO_KILO_SIN_ENVOLVER = 1100
+const precios = [
+  { nombre: 'PRECIO_KILO_ENVUELTO', valor: PRECIO_KILO_ENVUELTO },
+  { nombre: 'PRECIO_CAJA_X40', valor: PRECIO_CAJA_X40 },
+  { nombre: 'PRECIO_KILO_SIN_ENVOLVER', valor: PRECIO_KILO_SIN_ENVOLVER }
+]
+
+console.log(precios)
+
+// Búsqueda de un precio por nombre
+const nombreBuscado = 'PRECIO_CAJA_X40'
+const precioEncontrado = precios.find(precio => precio.nombre === nombreBuscado)
+console.log(precioEncontrado) 
+
+// Filtrado de precios por valor
+const precioMinimo = 1200
+const preciosFiltrados = precios.filter(precio => precio.valor >= precioMinimo)
+console.log(preciosFiltrados) 
 
 // Variables para acumular cantidad de artículos y costo total
 let cantidadArticulos = 0
@@ -24,21 +41,21 @@ while (!seleccionValida) {
       alert("Kilo Envuelto seleccionado")
       let cantidadKiloEnvuelto = parseInt(prompt("Ingrese la cantidad de kilos envueltos que desea"))
       cantidadArticulos += cantidadKiloEnvuelto
-      costoTotal += calcularCostoTotal(cantidadKiloEnvuelto, PRECIO_KILO_ENVUELTO)
+      costoTotal += calcularCostoTotal(cantidadKiloEnvuelto, precioEncontrado.valor)
       seleccionValida = true
       break
     case 2:
       alert("Caja x40 seleccionada")
       let cantidadCajaX40 = parseInt(prompt("Ingrese la cantidad de cajas x40 que desea"))
       cantidadArticulos += cantidadCajaX40
-      costoTotal += calcularCostoTotal(cantidadCajaX40, PRECIO_CAJA_X40)
+      costoTotal += calcularCostoTotal(cantidadCajaX40, precioEncontrado.valor)
       seleccionValida = true
       break
     case 3:
       alert("Kilo sin envolver seleccionado")
       let cantidadKiloSinEnvolver = parseInt(prompt("Ingrese la cantidad de kilos sin envolver que desea"))
       cantidadArticulos += cantidadKiloSinEnvolver
-      costoTotal += calcularCostoTotal(cantidadKiloSinEnvolver, PRECIO_KILO_SIN_ENVOLVER)
+      costoTotal += calcularCostoTotal(cantidadKiloSinEnvolver, precioEncontrado.valor)
       seleccionValida = true
       break
     default:
@@ -46,10 +63,10 @@ while (!seleccionValida) {
       break
   }
 }
-
-
 function mostrarResumenPedido() {
   alert(nombre + ", usted ha seleccionado " + cantidadArticulos + " artículo(s) por un total de $" + costoTotal)
 }
 
 mostrarResumenPedido()
+
+
