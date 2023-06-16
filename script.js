@@ -13,14 +13,6 @@ const precios = [
 
 console.log(precios);
 
-const nombreBuscado = 'PRECIO_CAJA_X40';
-const precioEncontrado = precios.find(precio => precio.nombre === nombreBuscado);
-console.log(precioEncontrado);
-
-const precioMinimo = 1200;
-const preciosFiltrados = precios.filter(precio => precio.valor >= precioMinimo);
-console.log(preciosFiltrados);
-
 // Variables para acumular cantidad de artículos y costo total
 let cantidadArticulos = 0;
 let costoTotal = 0;
@@ -34,26 +26,31 @@ let seleccion;
 while (!seleccionValida) {
   seleccion = parseInt(prompt("Seleccione 1 para Kilo Envuelto, 2 para Caja x40, 3 para Kilo sin envolver"));
 
+  let precioEncontrado; // Precio encontrado para el producto seleccionado
+
   switch (seleccion) {
     case 1:
       alert("Kilo Envuelto seleccionado");
+      precioEncontrado = precios.find(precio => precio.nombre === 'PRECIO_KILO_ENVUELTO').valor;
       let cantidadKiloEnvuelto = parseInt(prompt("Ingrese la cantidad de kilos envueltos que desea"));
       cantidadArticulos += cantidadKiloEnvuelto;
-      costoTotal += calcularCostoTotal(cantidadKiloEnvuelto, precioEncontrado.valor);
+      costoTotal += calcularCostoTotal(cantidadKiloEnvuelto, precioEncontrado);
       seleccionValida = true;
       break;
     case 2:
       alert("Caja x40 seleccionada");
+      precioEncontrado = precios.find(precio => precio.nombre === 'PRECIO_CAJA_X40').valor;
       let cantidadCajaX40 = parseInt(prompt("Ingrese la cantidad de cajas x40 que desea"));
       cantidadArticulos += cantidadCajaX40;
-      costoTotal += calcularCostoTotal(cantidadCajaX40, precioEncontrado.valor);
+      costoTotal += calcularCostoTotal(cantidadCajaX40, precioEncontrado);
       seleccionValida = true;
       break;
     case 3:
       alert("Kilo sin envolver seleccionado");
+      precioEncontrado = precios.find(precio => precio.nombre === 'PRECIO_KILO_SIN_ENVOLVER').valor;
       let cantidadKiloSinEnvolver = parseInt(prompt("Ingrese la cantidad de kilos sin envolver que desea"));
       cantidadArticulos += cantidadKiloSinEnvolver;
-      costoTotal += calcularCostoTotal(cantidadKiloSinEnvolver, precioEncontrado.valor);
+      costoTotal += calcularCostoTotal(cantidadKiloSinEnvolver, precioEncontrado);
       seleccionValida = true;
       break;
     default:
@@ -102,6 +99,5 @@ function resetearCarrito() {
 
   // Actualizar el contenido del párrafo con los valores reseteados
   let dato1LS = document.getElementById("dato1");
-  dato1LS.innerHTML = "El carrito esta vacio";
-
+  dato1LS.innerHTML = "El carrito está vacío";
 }
