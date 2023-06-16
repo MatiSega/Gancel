@@ -7,9 +7,18 @@
 main {
   display: flex;
   justify-content: space-between;
-  background-color: aquamarine;
+  background-color: #d6c3e2;
 }
 
 body {
   background-image: url(master/img/baner.png);
+}
+
+#mostrar1 {
+  background-color: #bd9bcf;
+}
+
+header {
+  border-block-color: black;
+  border: 2px;
 }/*# sourceMappingURL=desing.css.map */
