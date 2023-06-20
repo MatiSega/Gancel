@@ -1,103 +1,74 @@
-alert("Bienvenidos a Gancel");
-let nombre = prompt("Ingrese su nombre");
+const PRECIO_FRUTILLITAS = 1400;
+const PRECIO_CAJITA = 1200;
+const PRECIO_KILO = 1100;
 
-// Variables de precios
-const PRECIO_KILO_FRUTILLA = 1400;
-const PRECIO_CAJA_X40 = 1200;
-const PRECIO_KILO_SIN_ENVOLVER = 1100;
-const precios = [
-  { nombre: 'PRECIO_KILO_FRUTILLA', valor: PRECIO_KILO_FRUTILLA },
-  { nombre: 'PRECIO_CAJA_X40', valor: PRECIO_CAJA_X40 },
-  { nombre: 'PRECIO_KILO_SIN_ENVOLVER', valor: PRECIO_KILO_SIN_ENVOLVER }
-];
-
-console.log(precios);
-
-// Variables para acumular cantidad de artículos y costo total
 let cantidadArticulos = 0;
 let costoTotal = 0;
+let nombreUsuario = '';
 
-function calcularCostoTotal(cantidad, precio) {
-  return cantidad * precio;
-}
+const usuarioInput = document.getElementById('floatingInputGroup1');
+const productosSelect = document.getElementById('productos');
+const cantidadSelect = document.getElementById('cantidad');
+const agregarCarritoBtn = document.getElementById('agregarCarrito');
+const tablaBody = document.getElementById('tabla');
+const totalP = document.getElementById('total');
+const resetButton = document.getElementById('resetButton');
 
-let seleccionValida = false;
-let seleccion;
-while (!seleccionValida) {
-  seleccion = parseInt(prompt("Seleccione 1 para Kilo Frutilla, 2 para Caja x40, 3 para Kilo sin envolver"));
+agregarCarritoBtn.addEventListener('click', () => {
+  const usuario = usuarioInput.value;
+  const producto = productosSelect.value;
+  const cantidad = parseInt(cantidadSelect.value);
 
-  let precioEncontrado; // Precio encontrado para el producto seleccionado
+  if (!usuario || !producto || isNaN(cantidad) || cantidad <= 0) {
+    alert('Por favor, complete todos los campos correctamente.');
+    return;
+  }
 
-  switch (seleccion) {
-    case 1:
-      alert("Kilo Envuelto seleccionado");
-      precioEncontrado = precios.find(precio => precio.nombre === 'PRECIO_KILO_FRUTILLA').valor;
-      let cantidadKiloEnvuelto = parseInt(prompt("Ingrese la cantidad de kilos que desea"));
-      cantidadArticulos += cantidadKiloEnvuelto;
-      costoTotal += calcularCostoTotal(cantidadKiloEnvuelto, precioEncontrado);
-      seleccionValida = true;
+  let precio, nombreProducto;
+  switch (producto) {
+    case 'frutillitas':
+      precio = PRECIO_FRUTILLITAS;
+      nombreProducto = 'Frutillitas';
       break;
-    case 2:
-      alert("Caja x40 seleccionada");
-      precioEncontrado = precios.find(precio => precio.nombre === 'PRECIO_CAJA_X40').valor;
-      let cantidadCajaX40 = parseInt(prompt("Ingrese la cantidad de cajas x40 que desea"));
-      cantidadArticulos += cantidadCajaX40;
-      costoTotal += calcularCostoTotal(cantidadCajaX40, precioEncontrado);
-      seleccionValida = true;
+    case 'cajita':
+      precio = PRECIO_CAJITA;
+      nombreProducto = 'Cajita';
       break;
-    case 3:
-      alert("Kilo sin envolver seleccionado");
-      precioEncontrado = precios.find(precio => precio.nombre === 'PRECIO_KILO_SIN_ENVOLVER').valor;
-      let cantidadKiloSinEnvolver = parseInt(prompt("Ingrese la cantidad de kilos sin envolver que desea"));
-      cantidadArticulos += cantidadKiloSinEnvolver;
-      costoTotal += calcularCostoTotal(cantidadKiloSinEnvolver, precioEncontrado);
-      seleccionValida = true;
+    case 'kilo':
+      precio = PRECIO_KILO;
+      nombreProducto = 'Kilo';
       break;
     default:
-      alert("Por favor, seleccione una opción válida.");
-      break;
+      alert('Por favor, seleccione un producto válido.');
+      return;
   }
-}
 
-function mostrarResumenPedido() {
-  alert(nombre + ", usted ha seleccionado " + cantidadArticulos + " artículo(s) por un total de $" + costoTotal);
-}
+  const subtotal = cantidad * precio;
 
-mostrarResumenPedido();
+  const row = document.createElement('tr');
+  row.innerHTML = `
+    <td>${cantidadArticulos + 1}</td>
+    <td>${cantidad}</td>
+    <td>${precio}</td>
+    <td>${subtotal}</td>
+  `;
+  tablaBody.appendChild(row);
 
-// Local Storage para mostrar el carrito con boton
-const datosCarrito = {
-  usuarioX: nombre,
-  cantidadArticulos: cantidadArticulos,
-  costoTotal: costoTotal
-};
+  cantidadArticulos += 1;
+  costoTotal += subtotal;
+  nombreUsuario = usuario;
 
-localStorage.setItem("datosCarrito", JSON.stringify(datosCarrito));
+  totalP.textContent = `Total a pagar de ${nombreUsuario}: $${costoTotal}`;
 
-let boton = document.getElementById("boton");
-boton.addEventListener("click", mostrarContenidoLocalStorage);
+  usuarioInput.value = '';
+  productosSelect.selectedIndex = 0;
+  cantidadSelect.selectedIndex = 0;
+});
 
-function mostrarContenidoLocalStorage() {
-  const datosGuardadosJSON = localStorage.getItem("datosCarrito");
-  const datosGuardados = JSON.parse(datosGuardadosJSON);
-
-  let dato1LS = document.getElementById("dato1");
-  dato1LS.innerHTML = datosGuardados.usuarioX + " usted ha seleccionado: " + datosGuardados.cantidadArticulos + " artículo(s) con un costo total: $" + datosGuardados.costoTotal;
-}
-
-let botonReset = document.getElementById("reset");
-botonReset.addEventListener("click", resetearCarrito);
-
-// Función para resetear el carrito
-function resetearCarrito() {
-  // Restablecer valores a cero
+resetButton.addEventListener('click', () => {
+  tablaBody.innerHTML = '';
   cantidadArticulos = 0;
   costoTotal = 0;
-
-  // Limpiar almacenamiento local
-  localStorage.removeItem("datosCarrito");
-
-  // Actualizar el contenido del párrafo con los valores reseteados
-  let dato1LS = document.getElementById("dato1");
-  dato1LS.innerHTML = "El carrito está vacío";
-}
+  nombreUsuario = '';
+  totalP.textContent = 'Total: $0';
+});

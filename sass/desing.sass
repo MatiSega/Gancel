@@ -1,18 +1,24 @@
-#logo 
-    border-radius: 100%
-    width: 50px
-    height: auto 
-main
-    display: flex 
-    justify-content: space-between
-    background-color: #d6c3e2
-body
-        background-image: url(master/img/baner.png)
-#mostrar1
-    background-color: #bd9bcf
+#logo {
+  border-radius: 100%;
+  height: auto;
+}
 
-header
-    border-block-color: black    
-    border: 2px    
-   
-    
+body {
+  display: grid;
+  background-color: #bd9bcf;
+
+  header {
+    border: 2px solid black;
+  }
+
+  .container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+
+    .card {
+      width: 18rem;
+      margin-right: 10px;
+    }
+  }
+}

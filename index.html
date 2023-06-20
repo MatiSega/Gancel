@@ -1,75 +1,88 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./sass/desing.css">
-    <link rel="stylesheet" href="./css/diseño.css">
-    <link rel="shortcut icon" href="/img/logo.png"   type="image/x-icon">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
-    <title>Gancel</title>
+  <title>Gancel</title>
+  <link rel="stylesheet" href="./sass/desing.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+
 </head>
+
 <body>
-    <header>
-            <nav class="navbar navbar-expand-lg bg-body-tertiary">
-                <div class="container-fluid">
-                  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                  </button>
-                  <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav">
-                      <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Inicio</a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="nav-link" href="#">Productos</a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="nav-link" href="#">Quienes somos</a>
-                      </li>
-                    </ul>
-                  </div>
-                  <div > <img id="logo" src="./img/logo.png" alt="logo">
-                  </div>
-                  <h1>ancel</h1>
-                </div>
-              </nav>
-    </header>
-    <section id="mostrar1">
-      <h2>Carrito</h2>
-      <p id="dato1">Bonbones</p>
-<button class="btn btn-primary" id="boton" >Ver Carrito</button>
-<input class="btn btn-primary" type="reset" value="Reset" id="reset">
-  </section>
-    <main>
-      <div class="card" style="width: 18rem;">
-        <img src="./img/Screenshot_3.png" class="card-img-top" alt="frutillitas">
-        <div class="card-body">
-          <h4>Frutillitas x kilo</h4>
-          <p class="card-text">$1400</p>
-        </div>
+  <nav class="navbar bg-body-tertiary">
+    <div class="container">
+      <a class="navbar-brand" href="#">
+        <img src="/img/logo.png" alt="Bootstrap" id="logo">
+      </a>
+    </div>
+  </nav>
+  <div class="container">
+    <div class="card" style="width: 18rem;">
+      <img src="./img/Screenshot_3.png" class="card-img-top" alt="frutillitas">
+      <div class="card-body">
+        <h5 class="card-title">frutillitas</h5>
+        <p class="card-text">1 kilo de las mejores frutillas</p>
       </div>
     </div>
-      <div class="card" style="width: 18rem;">
-        <img src="./img/Screenshot_1.png" class="card-img-top" alt="cajita">
-        <div class="card-body">
-          <h4>Cajita</h4>
-          <p class="card-text">$1200</p>
-        </div>
-      </div>
     <div class="card" style="width: 18rem;">
-        <img src="./img/kilossin.png" class="card-img-top" alt="kilossin">
-        <div class="card-body">
-          <h4>Kilo sin envolver</h4>
-          <p class="card-text">$1100</p>
-        </div>
+      <img src="./img/Screenshot_1.png" class="card-img-top" alt="cajita">
+      <div class="card-body">
+        <h5 class="card-title">cajita</h5>
+        <p class="card-text">Caja por 40u surtido</p>
       </div>
-    </main>
-    <footer>
+    </div>
+    <div class="card" style="width: 18rem;">
+      <img src="./img/kilossin.png" class="card-img-top" alt="kilo">
+      <div class="card-body">
+        <h5 class="card-title">kilo</h5>
+        <p class="card-text">1 kilo surtido de bombones de fruta sin envolver</p>
+      </div>
+    </div>
+  </div>
+  <h2>Carrito</h2>
+  <div class="input-group mb-3">
+    <div class="form-floating">
+      <input type="text" class="form-control" id="floatingInputGroup1" placeholder="Username">
+      <label for="floatingInputGroup1">Usuario</label>
+    </div>
+  </div>
+  <select id="productos" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+    <option selected>Productos</option>
+    <option id="frutillitas" value="frutillitas">frutillitas</option>
+    <option id="cajita" value="cajita">cajita</option>
+    <option id="kilo" value="kilo">kilo</option>
+  </select>
 
-    </footer>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
-    <script src="./script.js"></script>
+  <select id="cantidad" class="form-select form-select-sm" aria-label=".form-select-sm example">
+    <option selected>Cantidad</option>
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+  </select>
+  <button id="agregarCarrito" class="btn btn-primary">Agregar al carrito</button>
+  <button id="resetButton" type="reset" class="btn btn-primary">Reset</button>
+
+  <div class="table-responsive">
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Número</th>
+          <th scope="col">Cantidad</th>
+          <th scope="col">Valor</th>
+          <th scope="col">Subtotal</th>
+        </tr>
+      </thead>
+      <tbody id="tabla">
+      </tbody>
+    </table>
+  </div>
+  <p id="total">Total: $0</p>
+
+  <script src="script.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
 </body>
+
 </html>
