@@ -2,23 +2,46 @@
   border-radius: 100%;
   width: 50px;
   height: auto;
+  display: inline-block;
+  align-content: top;
+  justify-content: top;
 }
 
-main {
-  display: flex;
-  justify-content: space-between;
-  background-color: #d6c3e2;
+#titulo {
+  display: inline-block;
+  background-color: #bd9bcf;
 }
 
 body {
-  background-image: url(master/img/baner.png);
-}
-
-#mostrar1 {
+  display: grid;
   background-color: #bd9bcf;
 }
 
 header {
-  border-block-color: black;
-  border: 2px;
+  border: 2px solid black;
+  display: flex;
+  align-items: center;
+}
+#logo {
+  margin-right: 10px;
+}
+
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+
+.card {
+  width: 18rem;
+  margin-right: 10px;
+}
+
+#agregarCarrito,
+#resetButton {
+  width: 18rem;
+}
+
+#cards {
+  display: flex;
 }/*# sourceMappingURL=desing.css.map */

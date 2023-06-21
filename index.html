@@ -10,35 +10,47 @@
 
 <body>
   <nav class="navbar bg-body-tertiary">
-    <div class="container">
+    <div class="container-fluid">
       <a class="navbar-brand" href="#">
-        <img src="/img/logo.png" alt="Bootstrap" id="logo">
+        <img src="./img/logo.png" alt="Logo" id="logo" class="d-inline-block align-text-top justify-content-between ">
       </a>
     </div>
   </nav>
-  <div class="container">
-    <div class="card" style="width: 18rem;">
-      <img src="./img/Screenshot_3.png" class="card-img-top" alt="frutillitas">
-      <div class="card-body">
-        <h5 class="card-title">frutillitas</h5>
-        <p class="card-text">1 kilo de las mejores frutillas</p>
+  <h1 id="titulo">Bienvenidos a GANCEL</h1>
+  <div class="container text-center">
+    <div class="row">
+      <div class="col">
+        <div class="card" style="width: 18rem;">
+          <img src="./img/Screenshot_3.png" class="card-img-top" alt="frutillitas">
+          <div class="card-body">
+            <h5 class="card-title">Frutillitas</h5>
+            <h5>$1400</h5>
+            <p class="card-text">1 kilo de las mejores frutillas</p>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card" style="width: 18rem;">
+          <img src="./img/Screenshot_1.png" class="card-img-top" alt="cajita">
+          <div class="card-body">
+            <h5 class="card-title">Cajita</h5>
+            <h5>$1200</h5>
+            <p class="card-text">Caja por 40u surtido</p>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card" style="width: 18rem;">
+          <img src="./img/kilossin.png" class="card-img-top" alt="kilo">
+          <div class="card-body">
+            <h5 class="card-title">kilo</h5>
+            <h5>$1100</h5>
+            <p class="card-text">1 kilo surtido de bombones de fruta sin envolver</p>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="card" style="width: 18rem;">
-      <img src="./img/Screenshot_1.png" class="card-img-top" alt="cajita">
-      <div class="card-body">
-        <h5 class="card-title">cajita</h5>
-        <p class="card-text">Caja por 40u surtido</p>
-      </div>
-    </div>
-    <div class="card" style="width: 18rem;">
-      <img src="./img/kilossin.png" class="card-img-top" alt="kilo">
-      <div class="card-body">
-        <h5 class="card-title">kilo</h5>
-        <p class="card-text">1 kilo surtido de bombones de fruta sin envolver</p>
-      </div>
-    </div>
-  </div>
+  </div>  
   <h2>Carrito</h2>
   <div class="input-group mb-3">
     <div class="form-floating">
@@ -48,9 +60,9 @@
   </div>
   <select id="productos" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
     <option selected>Productos</option>
-    <option id="frutillitas" value="frutillitas">frutillitas</option>
-    <option id="cajita" value="cajita">cajita</option>
-    <option id="kilo" value="kilo">kilo</option>
+    <option id="frutillitas" value="frutillitas">Frutillitas</option>
+    <option id="cajita" value="cajita">Cajita</option>
+    <option id="kilo" value="kilo">Kilo</option>
   </select>
 
   <select id="cantidad" class="form-select form-select-sm" aria-label=".form-select-sm example">
