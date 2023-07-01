@@ -109,7 +109,8 @@ productos.forEach((producto) => {
         <h5>${producto.valor}</h5>
       </div>
       <div class="d-grid gap-2">
-  <button class="btn btn-primary" id="BotonComprar" type="button">Agregar al Carrito</button>
+      <button class="btn btn-primary" id="BotonComprar_${producto.id}" type="button">Agregar al Carrito</button>
+
 </div>
     </div>
   `;
@@ -146,7 +147,9 @@ function actualizarCarrito() {
       <td>${producto.cantidad}</td>
       <td>${producto.valor}</td>
       <td>${(producto.cantidad * parseFloat(producto.valor.slice(1))).toFixed(2)}</td>
-    `;
+    `
+    
+    ;
     tablaCarrito.appendChild(fila);
 
     total += producto.cantidad * parseFloat(producto.valor.slice(1));
@@ -170,7 +173,7 @@ const finalizarButton = document.getElementById("finalizarButton");
 // Agregar event listener al botón "Finalizar"
 finalizarButton.addEventListener("click", finalizarCompra);
 
-// Función para finalizar la compra
+
 // Función para finalizar la compra
 function finalizarCompra() {
   const nombreInput = document.getElementById("nombreInput");
@@ -188,6 +191,32 @@ function finalizarCompra() {
   const total = carrito.reduce((acc, producto) => acc + producto.cantidad * parseFloat(producto.valor.slice(1)), 0);
   mensaje += `\nTotal a pagar: $${total.toFixed(2)}`;
   totalElement.textContent = mensaje;
+
+  Swal.fire({
+    icon: 'success',
+    title: 'Completar compra',
+    text: mensaje,
+    footer: '<a href="index.html">Seguir comprando?</a>'
+  })
+}
+
+//cartelito de +
+botonesAgregar.forEach((boton) => {
+  boton.addEventListener("click", (event) => {
+    const id = event.target.id.split("_")[1];
+    const productoSeleccionado = productos.find((producto) => producto.id === parseInt(id));
+    mostrarProductoEnCartelito(productoSeleccionado);
+    agregarAlCarrito(productoSeleccionado);
+  });
+});
+function mostrarProductoEnCartelito(producto) {
+  const cartelito = document.getElementById("cartelito");
+  cartelito.textContent = `Producto agregado al carrito: ${producto.nombre}`;
+  cartelito.style.display = "block";
+
+  setTimeout(() => {
+    cartelito.style.display = "none";
+  }, 3000);
 }
 
 
@@ -203,6 +232,16 @@ function borrarCarrito() {
   carrito = []; // Reiniciar el carrito
   actualizarCarrito(); // Actualizar la tabla del carrito
 }
+
+// Mostrar el cartelito
+const cartelito = document.getElementById("cartelito");
+cartelito.style.display = "block";
+
+// Ocultar el cartelito después de 2 segundos
+setTimeout(() => {
+  cartelito.style.display = "none";
+}, 2000);
+
 
 
 
