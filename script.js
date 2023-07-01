@@ -88,7 +88,15 @@ const productos = [
 
 ]
 
+const guardarLocal =(clave, valor)=> {localStorage.setItem(clave, valor)}
+
+for(const productoJSON of productos ){
+    guardarLocal(productoJSON.id, JSON.stringify(productoJSON))
+}
+ 
 const contenedorProductos = document.getElementById("contenedorProductos");
+
+let botonComprar = document.getElementById("BotonComprar")
 
 productos.forEach((producto) => {
   const card = document.createElement("div");
@@ -101,16 +109,105 @@ productos.forEach((producto) => {
         <h5>${producto.valor}</h5>
       </div>
       <div class="d-grid gap-2">
-  <button class="btn btn-primary" type="button">Agregar al Carrito</button>
+  <button class="btn btn-primary" id="BotonComprar" type="button">Agregar al Carrito</button>
 </div>
     </div>
   `;
   contenedorProductos.appendChild(card);
 });
 
+// Variable para almacenar los productos seleccionados en el carrito
+let carrito = [];
+
+// Función para agregar un producto al carrito
+function agregarAlCarrito(producto) {
+  const index = carrito.findIndex((p) => p.id === producto.id);
+
+  if (index !== -1) {
+    carrito[index].cantidad += 1;
+  } else {
+    carrito.push({ ...producto, cantidad: 1 });
+  }
+
+  actualizarCarrito();
+}
+
+// Función para actualizar la tabla del carrito
+function actualizarCarrito() {
+  const tablaCarrito = document.getElementById("tabla");
+  tablaCarrito.innerHTML = "";
+
+  let total = 0;
+
+  carrito.forEach((producto) => {
+    const fila = document.createElement("tr");
+    fila.innerHTML = `
+      <td><img src="${producto.imagen}" alt="${producto.nombre}" width="50"></td>
+      <td>${producto.cantidad}</td>
+      <td>${producto.valor}</td>
+      <td>${(producto.cantidad * parseFloat(producto.valor.slice(1))).toFixed(2)}</td>
+    `;
+    tablaCarrito.appendChild(fila);
+
+    total += producto.cantidad * parseFloat(producto.valor.slice(1));
+  });
+
+  const totalElement = document.getElementById("total");
+  totalElement.textContent = `Total: $${total.toFixed(2)}`;
+}
+// Obtener los botones "Agregar al Carrito" generados dinámicamente
+const botonesAgregar = document.querySelectorAll("#contenedorProductos .btn");
+
+botonesAgregar.forEach((boton, index) => {
+  boton.addEventListener("click", () => {
+    agregarAlCarrito(productos[index]);
+  });
+});
+
+// Obtener el botón "Finalizar"
+const finalizarButton = document.getElementById("finalizarButton");
+
+// Agregar event listener al botón "Finalizar"
+finalizarButton.addEventListener("click", finalizarCompra);
+
+// Función para finalizar la compra
+// Función para finalizar la compra
+function finalizarCompra() {
+  const nombreInput = document.getElementById("nombreInput");
+  const apellidoInput = document.getElementById("apellidoInput");
+  const nombre = nombreInput.value;
+  const apellido = apellidoInput.value;
+
+  let mensaje = `${nombre} ${apellido} ha comprado:`;
+
+  carrito.forEach((producto) => {
+    mensaje += `\n- ${producto.nombre} (Cantidad: ${producto.cantidad})`;
+  });
+
+  const totalElement = document.getElementById("total");
+  const total = carrito.reduce((acc, producto) => acc + producto.cantidad * parseFloat(producto.valor.slice(1)), 0);
+  mensaje += `\nTotal a pagar: $${total.toFixed(2)}`;
+  totalElement.textContent = mensaje;
+}
 
 
-console.log(productos)
+
+// Obtener el botón "Borrar"
+const resetButton = document.getElementById("resetButton");
+
+// Agregar event listener al botón "Borrar"
+resetButton.addEventListener("click", borrarCarrito);
+
+// Función para vaciar el carrito
+function borrarCarrito() {
+  carrito = []; // Reiniciar el carrito
+  actualizarCarrito(); // Actualizar la tabla del carrito
+}
+
+
+
+
+/* console.log(productos)
 
 let cantidadArticulos = 0;
 let costoTotal = 0;
@@ -182,3 +279,4 @@ resetButton.addEventListener('click', () => {
   nombreUsuario = '';
   totalP.textContent = 'Total: $0';
 });
+ */
