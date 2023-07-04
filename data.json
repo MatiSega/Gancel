@@ -1,0 +1,63 @@
+[
+    {
+      "id": 1,
+      "nombre": "Cajita",
+      "imagen": "./img/cajita.png",
+      "valor": "$1250"
+    },
+    {
+      "id": 2,
+      "nombre": "Kilo sin envolver",
+      "imagen": "./img/kilossin.png",
+      "valor": "$1100"
+    },
+    {
+      "id": 3,
+      "nombre": "Frutillitas",
+      "imagen": "./img/frutillas.sueltas.webp.png",
+      "valor": "$1150"
+    },
+    {
+      "id": 4,
+      "nombre": "Kilo bombom Manzana",
+      "imagen": "./img/bombon.Manzana.jpg.png",
+      "valor": "$1150"
+    },
+    {
+      "id": 5,
+      "nombre": "Kilo bombom Limon",
+      "imagen": "./img/bombon.Limon.webp.png",
+      "valor": "$1150"
+    },
+    {
+      "id": 6,
+      "nombre": "Kilo bombom Uva",
+      "imagen": "./img/bombon.Uva.webp.png",
+      "valor": "$1150"
+    },
+    {
+      "id": 7,
+      "nombre": "Kilo bombom frutilla",
+      "imagen": "./img/bonbon.cereza.webp.png",
+      "valor": "$1150"
+    },
+    {
+      "id": 8,
+      "nombre": "Kilo bombom Naranja",
+      "imagen": "./img/bombon.Naranja.jpg.png",
+      "valor": "$1150"
+    },
+    {
+      "id": 9,
+      "nombre": "Alfajor Don Salvador Negro",
+      "imagen": "./img/alfajor-negro.webp.png",
+      "valor": "$4500"
+    },
+    {
+      "id": 10,
+      "nombre": "Alfajor Don Salvador Blanco",
+      "imagen": "./img/alfajor-blanco.webp.png",
+      "valor": "$4500"
+    }
+  ]
+  
