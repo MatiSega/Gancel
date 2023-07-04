@@ -2,6 +2,18 @@ fetch("data.json")
   .then((res) => res.json())
   .then((productos) => {
     const contenedorProductos = document.getElementById("contenedorProductos");
+    const tablaCarrito = document.getElementById("tabla");
+    const totalElement = document.getElementById("total");
+    const nombreInput = document.getElementById("nombreInput");
+    const apellidoInput = document.getElementById("apellidoInput");
+    const botonFinalizar = document.getElementById("finalizarButton");
+    const botonBorrar = document.getElementById("resetButton");
+    const cartelito = document.getElementById("cartelito");
+
+    let carrito = [];
+
+    // Intentar cargar datos del carrito desde el localStorage al inicio
+    cargarCarritoDesdeLocalStorage();
 
     productos.forEach((producto) => {
       const card = document.createElement("div");
@@ -29,8 +41,6 @@ fetch("data.json")
       });
     });
 
-    let carrito = [];
-
     function agregarAlCarrito(producto) {
       const index = carrito.findIndex((p) => p.id === producto.id);
 
@@ -40,13 +50,14 @@ fetch("data.json")
         carrito.push({ ...producto, cantidad: 1 });
       }
 
+      // Guardar el carrito en el localStorage
+      guardarCarritoEnLocalStorage();
+
       actualizarCarrito();
     }
 
     function actualizarCarrito() {
-      const tablaCarrito = document.getElementById("tabla");
       tablaCarrito.innerHTML = "";
-
       let total = 0;
 
       carrito.forEach((producto) => {
@@ -62,13 +73,14 @@ fetch("data.json")
         total += producto.cantidad * parseFloat(producto.valor.slice(1));
       });
 
-      const totalElement = document.getElementById("total");
-      totalElement.textContent = `Total: $${total.toFixed(2)}`;
+      if (carrito.length === 0) {
+        totalElement.textContent = "Total: $0";
+      } else {
+        totalElement.textContent = `Total: $${total.toFixed(2)}`;
+      }
     }
 
-    const botonesAgregar1 = document.querySelectorAll("#contenedorProductos .btn");
-
-    botonesAgregar1.forEach((boton) => {
+    botonesAgregar.forEach((boton) => {
       boton.addEventListener("click", (event) => {
         const id = event.target.id.split("_")[1];
         const productoSeleccionado = productos.find((producto) => producto.id === parseInt(id));
@@ -77,7 +89,6 @@ fetch("data.json")
     });
 
     function mostrarProductoEnCartelito(producto) {
-      const cartelito = document.getElementById("cartelito");
       cartelito.textContent = `Producto agregado al carrito: ${producto.nombre}`;
       cartelito.style.display = "block";
 
@@ -86,7 +97,6 @@ fetch("data.json")
       }, 3000);
     }
 
-    const botonFinalizar = document.getElementById("finalizarButton");
     botonFinalizar.addEventListener("click", finalizarCompra);
 
     function finalizarCompra() {
@@ -100,23 +110,49 @@ fetch("data.json")
         reverseButtons: true,
       }).then((result) => {
         if (result.isConfirmed) {
-          Swal.fire({
-            title: "Aceptado",
-            text: "Gracias por confiar en nosotros",
-            icon: "success",
-          }).then(() => {
-            window.location.href = "https://www.facebook.com/GolosinasGancel";
-          });
-        } else if (result.dismiss === Swal.DismissReason.cancel) {
-          Swal.fire({
-            title: "Cancelado",
-            text: "Esperamos que vuelva pronto",
-            icon: "error",
-          });
+          const nombre = nombreInput.value.trim();
+          const apellido = apellidoInput.value.trim();
+
+          if (nombre === "" || apellido === "") {
+            Swal.fire({
+              title: "Error",
+              text: "Por favor ingrese su nombre y apellido",
+              icon: "error",
+              confirmButtonText: "Ok",
+            });
+          } else {
+            Swal.fire({
+              title: "¡Compra realizada!",
+              text: "Gracias por su compra, " + nombre + " " + apellido + "!",
+              icon: "success",
+              confirmButtonText: "Ok",
+            });
+            resetearCarrito();
+          }
         }
       });
     }
-  })
-  .catch((error) => {
-    console.log("Error al cargar los productos:", error);
+
+    botonBorrar.addEventListener("click", resetearCarrito);
+
+    function resetearCarrito() {
+      carrito = [];
+      actualizarCarrito();
+      nombreInput.value = "";
+      apellidoInput.value = "";
+
+      // Borrar los datos del carrito en el localStorage
+      localStorage.removeItem("carrito");
+    }
+
+    function cargarCarritoDesdeLocalStorage() {
+      const carritoGuardado = localStorage.getItem("carrito");
+      if (carritoGuardado) {
+        carrito = JSON.parse(carritoGuardado);
+      }
+    }
+
+    function guardarCarritoEnLocalStorage() {
+      localStorage.setItem("carrito", JSON.stringify(carrito));
+    }
   });
